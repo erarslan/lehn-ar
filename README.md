@@ -4,6 +4,8 @@ Prototype built for the **StartMiUp Hackathon** (Lehnert GmbH challenge).
 
 Web AR app for on-site room consultations: configure partition walls, place them in a real room at 1:1 scale with WebXR, then generate a photorealistic result with Gemini AI.
 
+**Live demo:** [startmiup.vercel.app](https://startmiup.vercel.app/)
+
 ## Run
 
 ```bash
