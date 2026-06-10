@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+
+  /* Motion tokens — stronger than the built-in CSS easings (Emil Kowalski). */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: #09090d;
+  color: #e7e7ea;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior: none;
+}
+
+/* ---- Entrance: screen ---- */
+@keyframes screen-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.screen-in {
+  animation: screen-in 420ms var(--ease-out) both;
+}
+
+/* ---- Entrance: staggered list/blocks ---- */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise {
+  opacity: 0;
+  animation: rise-in 460ms var(--ease-out) forwards;
+}
+
+/* ---- Press feedback (any pressable surface) ---- */
+.press {
+  transition: transform 160ms var(--ease-out);
+}
+.press:active {
+  transform: scale(0.97);
+}
+/* Large CTAs: keep the scale subtle so it doesn't feel rubbery */
+.press-lg {
+  transition: transform 160ms var(--ease-out);
+}
+.press-lg:active {
+  transform: scale(0.985);
+}
+
+/* Hover only on devices that truly hover — avoids sticky tap-hover on touch */
+@media (hover: hover) and (pointer: fine) {
+  .hover-accent:hover {
+    background-color: #34d399; /* emerald-400 */
+  }
+}
+
+/* Respect reduced motion: keep meaning, drop movement */
+@media (prefers-reduced-motion: reduce) {
+  .screen-in,
+  .rise {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .press:active,
+  .press-lg:active {
+    transform: none;
+  }
+}
+
+/* DOM overlay root used during the WebXR session */
+.xr-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+.xr-overlay > * {
+  pointer-events: auto;
+}
